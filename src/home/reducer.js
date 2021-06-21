@@ -1,16 +1,16 @@
 import { ADD_PRODUCT, REMOVE_PRODUCT } from "./actions";
 
 const defaultState = {
-    product: []
+    products: []
 };
 
 const homeReducer = (state = defaultState, action) => {
     switch (action.type) {
         case ADD_PRODUCT:
-            return { ...state, product: [...state.product, action.product] };
+            return { ...state, products: [...state.products, action.product] };
         case REMOVE_PRODUCT:
-            state.product.shift();
-            return { ...state, product: [...state.product] };
+            const filter = state.products.filter(f => f.id !== action.id);
+            return { ...state, products: filter };
         default:
             return state;
     }
