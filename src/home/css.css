@@ -1,0 +1,38 @@
+.tableFixHead {
+  overflow-y: auto;
+}
+.tableFixHead thead th {
+  position: sticky;
+  top: -1;
+  height: 40px;
+  text-align: center;
+}
+
+/* Just common table stuff. Really. */
+table,
+td,
+th {
+  border: 1px solid #cccccc;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+th,
+td {
+  padding: 2px 16px;
+}
+th {
+  background: #006fca;
+  color: white;
+  font-size: 13px;
+}
+
+.form-edit {
+  display: flex;
+  justify-content: center;
+}
+.value-cong {
+  display: flex;
+  justify-content: center;
+}
