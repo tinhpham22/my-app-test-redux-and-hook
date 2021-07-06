@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { ThemeContext } from '../contexts/ThemeContext';
 import { addProduct, removeProduct } from './actions';
 import './css.css';
 
@@ -7,6 +8,10 @@ function Home(props) {
   const dispatch = useDispatch();
   const state = useSelector(state => state);
   const [product, setProduct] = useState({});
+
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  const { isLightTheme, drark, light } = theme;
+  const style = isLightTheme ? light : drark;
 
   console.log(props)
 
@@ -26,32 +31,38 @@ function Home(props) {
 
   console.log('useSelecter', state.home.products)
 
-  return <>
+  return <div style={style}>
     <h1>Test redux</h1>
-    <div>
-      <span>id: </span>
-      <input style={{ border: '1px solid #d3d3d3', padding: 8, borderRadius: 4 }} type="text" onChange={(e) => handleChangeProduct('id', e)} />
-    </div>
-    <div>
-      <span>Mầy gì thế: </span>
-      <input
-        style={{ border: '1px solid #d3d3d3', padding: 8, borderRadius: 4 }} type="text"
-        onChange={(e) => handleChangeProduct('name', e)}
-      />
-    </div>
+    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '16px 24px' }}>
+      <div>
+        <div>
+          <span>id: </span>
+          <input style={{ border: '1px solid #d3d3d3', padding: 8, borderRadius: 4 }} type="text" onChange={(e) => handleChangeProduct('id', e)} />
+        </div>
+        <div>
+          <span>Mầy gì thế: </span>
+          <input
+            style={{ border: '1px solid #d3d3d3', padding: 8, borderRadius: 4 }} type="text"
+            onChange={(e) => handleChangeProduct('name', e)}
+          />
+        </div>
 
-    <div>
-      <span>Mấy tuổi rồi: </span>
-      <input
-        style={{ border: '1px solid #d3d3d3', padding: 8, borderRadius: 4 }} type="number"
-        onChange={(e) => handleChangeProduct('amount', e)}
-      />
-    </div>
-    <div>
-      <button
-        onClick={onDispatchAddProduct}
-        style={{ background: 'blue', color: 'white', border: 'none', padding: 8, borderRadius: 4 }}
-      >Thêm</button>
+        <div>
+          <span>Mấy tuổi rồi: </span>
+          <input
+            style={{ border: '1px solid #d3d3d3', padding: 8, borderRadius: 4 }} type="number"
+            onChange={(e) => handleChangeProduct('amount', e)}
+          />
+        </div>
+        <div>
+          <button
+            onClick={onDispatchAddProduct}
+            style={{ background: 'blue', color: 'white', border: 'none', padding: 8, borderRadius: 4 }}
+          >Thêm</button>
+        </div>
+      </div>
+
+      <div><button style={{ background: 'red', color: 'white' }} onClick={toggleTheme}>{isLightTheme ? 'Dark' : 'Light'}</button></div>
     </div>
 
     <table>
@@ -85,10 +96,7 @@ function Home(props) {
       </tbody>
     </table>
 
-    {/* 
-    <input type="text" onChange={(e) => setId(e.target.value)} />
-    <button onClick={() => dispatch(removeProduct(id))}>remove number</button> */}
-  </>
+  </div>
 }
 
 export default Home
