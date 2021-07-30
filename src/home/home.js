@@ -1,6 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThemeContext } from '../contexts/ThemeContext';
+import abcService from '../services/abc.service';
 import { addProduct, removeProduct } from './actions';
 import './css.css';
 
@@ -14,6 +15,17 @@ function Home(props) {
   const style = isLightTheme ? light : drark;
 
   console.log(props)
+
+
+  const loadData = useCallback(() => {
+    abcService.getAll()
+      .then(res => console.log(res))
+      .catch(e => console.log(e))
+  }, [])
+
+  useEffect(() => {
+    loadData()
+  }, [loadData])
 
   const onDispatchAddProduct = () => {
     console.log(product)
