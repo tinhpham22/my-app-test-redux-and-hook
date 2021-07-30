@@ -7,6 +7,12 @@ class BasicService {
     this.path = path;
   }
 
+  /**
+   * @param {string} method GET | POST | PUT | PATCH | DELETE | ...
+   * @param {string} suffixes this.path.concat(suffixes)
+   * @param {object} body những object cần thêm hoặc sửa
+   * @returns 
+   */
   callApi(method = 'GET', suffixes = '', body = null) { // nêu method = null || undifined thì method = 'GET', tương tự suffixes, body
     return new Promise((resolve, reject) => {
       axios({
